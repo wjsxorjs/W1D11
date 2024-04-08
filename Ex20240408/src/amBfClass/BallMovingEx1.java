@@ -13,7 +13,8 @@ import javax.swing.JPanel;
 
 public class BallMovingEx1 extends JFrame {
 	
-	int x = 210, xInc = 1;
+	int x = 210, y=245;
+	int xInc = 1, yInc = 1;
 	
 	
 	JPanel p = new JPanel() {
@@ -26,7 +27,7 @@ public class BallMovingEx1 extends JFrame {
 			// 준비된 이미지 객체에만 그림을 그릴 수 있는 붓과 같은 객체
 			Graphics buf_g = buf.getGraphics();
 			buf_g.setColor(Color.GREEN);
-			buf_g.fillOval(x, 245, 50, 50);
+			buf_g.fillOval(x, y, 50, 50);
 			
 			g.drawImage(buf, 0, 0, this);
 		}
@@ -38,7 +39,7 @@ public class BallMovingEx1 extends JFrame {
 	public BallMovingEx1() {
 		this.add(p);
 		
-		this.setBounds(300, 100, 500, 500);
+		this.setBounds(300, 100, 500, 400);
 		this.setVisible(true);
 		this.setTitle("Press Space");
 			

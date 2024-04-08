@@ -27,6 +27,7 @@ public class ThreadEx1 extends Thread {
 //		fe5.x=fe5.p.getWidth()-50;
 		while(true) {
 			fe5.x += fe5.xInc;
+			fe5.y += fe5.yInc;
 			
 			if(fe5.x >= fe5.p.getWidth()-50) {
 				fe5.x = fe5.p.getWidth()-50;
@@ -35,6 +36,15 @@ public class ThreadEx1 extends Thread {
 			} else if(fe5.x <= 0) {
 				fe5.x = 0;
 				fe5.xInc *= -1;
+				break;
+			}
+			if(fe5.y >= fe5.p.getHeight()-50) {
+				fe5.y = fe5.p.getHeight()-50;
+				fe5.yInc *= -1;
+				break;
+			} else if(fe5.y <= 0) {
+				fe5.y = 0;
+				fe5.yInc *= -1;
 				break;
 			}
 
