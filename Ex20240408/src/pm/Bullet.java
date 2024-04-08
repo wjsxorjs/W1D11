@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 public class Bullet extends Thread {
 	
-	Rectangle rect;
+	Rectangle rect = new Rectangle();
 	
 	Frame_Ex1 f;
 	
@@ -13,7 +13,8 @@ public class Bullet extends Thread {
 		rect.x = x;
 		rect.y = y;
 		
-		rect.width = f.
+		rect.width = f.bullet_img.getWidth(f);
+		rect.height = f.bullet_img.getHeight(f);
 		
 		this.f = f;
 		
@@ -24,16 +25,19 @@ public class Bullet extends Thread {
 	@Override
 	public void run() {
 		
-		while(true) {
+		while(rect.y > 0) {
 			
-			y -= 3;
+			rect.y -= 3;
 			
 			f.p.repaint();
+			
 			
 			try {
 				Thread.sleep(100);
 			} catch (Exception e) {}
 		}
+		
+		f.b_list.remove(this);
 		
 	}
 

@@ -17,7 +17,7 @@ public class Meteor_Ex2_Ans extends Thread {
 		rect.width = w;
 		rect.height = h;
 		
-		speed = (int)(Math.random()*650+20);
+		speed = (int)(Math.random()*50+10);
 	}
 	
 	@Override
@@ -29,12 +29,22 @@ public class Meteor_Ex2_Ans extends Thread {
 			if(rect.y >= f.p.getSize().height - rect.height) {
 				break;
 			}
+			
+			// 주인공 객체와 충돌여부
+			if(rect.intersects(f.me.pos)) {
+				
+				break; // 현재 운석 객체 소멸
+			}
+			
+			
 			try {
 				Thread.sleep(speed);
 			} catch (Exception e) {}
 			
 			f.p.repaint();
 		}
+		
+		f.m_list.remove(this);
 	}
 	
 	

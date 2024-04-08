@@ -1,4 +1,4 @@
-package pm;
+package pmTest;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -14,22 +14,23 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Frame_Ex1 extends JFrame {
+public class Frame extends JFrame {
 	
 	// 크기 객체 Dimension
 	Dimension d = new Dimension(390, 590);
 	
 	// 필요한 각 이미지들 (배경, 주인공, 운석, 폭발 등)
-	Image back_img, me_img, meteor_img, bullet_img;
+	Image back_img, me_img, meteor_img, bullet_img, explosion_img;
 	
 	Me me = new Me();
 	
 	ArrayList<Meteor> m_list = new ArrayList<Meteor>();
 	
-	
 	ArrayList<Bullet> b_list = new ArrayList<Bullet>();
 	
+	ArrayList<Explosion> e_list = new ArrayList<Explosion>();
 	
+	int score;
 	
 	
 	JPanel p = new JPanel() {
@@ -40,7 +41,7 @@ public class Frame_Ex1 extends JFrame {
 			g.drawImage(back_img, 0, 0, this);
 			
 			// 주인공 그리기
-			g.drawImage(me_img, me.pos.x, me.pos.y, this);
+			g.drawImage(me_img, me.rect.x, me.rect.y, this);
 
 			//운석 그리기
 			for(int i=0;i<m_list.size();i++) {
@@ -54,12 +55,19 @@ public class Frame_Ex1 extends JFrame {
 				g.drawImage(bullet_img, b.rect.x, b.rect.y, this);
 			}
 			
+			
 		}
 		
 	};
 	
+	public void title() {
+		String title = new StringBuffer("Score: ").append(score).toString();
+		
+		this.setTitle(title);
+
+	}
 	
-	public Frame_Ex1() {
+	public Frame() {
 
 		
 		back_img = new ImageIcon("src/images/back.jpg").getImage();
@@ -77,12 +85,15 @@ public class Frame_Ex1 extends JFrame {
 		this.setLocation(300, 100); // 창의 위치
 		this.pack(); 				// 컴포넌트들의 크기에 맞게 사이즈 설정
 									// 이 경우, 패널을 넣었으니 패널의 사이즈에 맞춤
+		
+		this.title();
 		this.setResizable(false);
 		this.setVisible(true);
 		
 		
 		// 운석 생성기 시작
 		init_meteor();
+		
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
@@ -99,9 +110,9 @@ public class Frame_Ex1 extends JFrame {
 				
 				switch(code) {
 				case KeyEvent.VK_LEFT:
-					me.pos.x -= 3;
-					if(me.pos.x < 0) {
-						me.pos.x = 0;
+					me.rect.x -= 10;
+					if(me.rect.x < 0) {
+						me.rect.x = 0;
 					}
 //					if(me.pos.x < 0) {
 //						me.pos.x = d.width-me.pos.width;
@@ -109,9 +120,9 @@ public class Frame_Ex1 extends JFrame {
 					break;
 					
 				case KeyEvent.VK_RIGHT:
-					me.pos.x += 3;
-					if(me.pos.x > d.width-me.pos.width) {
-						me.pos.x = d.width-me.pos.width;
+					me.rect.x += 10;
+					if(me.rect.x > d.width-me.rect.width) {
+						me.rect.x = d.width-me.rect.width;
 					}
 //					if(me.pos.x > d.width-me.pos.width) {
 //						me.pos.x = 0;
@@ -119,7 +130,7 @@ public class Frame_Ex1 extends JFrame {
 					break;
 					
 				case KeyEvent.VK_SPACE:
-					Bullet b = new Bullet(me.pos.x-(me.pos.width/2), me.pos.y, Frame_Ex1.this);
+					Bullet b = new Bullet(me.rect.x+(me.rect.width/2), me.rect.y, Frame.this);
 					b_list.add(b);
 					b.start();
 					break;
@@ -149,10 +160,10 @@ public class Frame_Ex1 extends JFrame {
 		int meWidth = me_img.getWidth(this);	// 주인공 이미지의 너비
 		int meHeight = me_img.getHeight(this);	// 주인공 이미지의 높이
 		
-		me.pos.x = (d.width - meWidth) / 2;
-		me.pos.y = d.height - meHeight - 5;
-		me.pos.width = meWidth;
-		me.pos.height = meHeight;
+		me.rect.x = (d.width - meWidth) / 2;
+		me.rect.y = d.height - meHeight - 5;
+		me.rect.width = meWidth;
+		me.rect.height = meHeight;
 		
 
 	}
@@ -164,10 +175,9 @@ public class Frame_Ex1 extends JFrame {
 	}
 	
 	
-	
 	public static void main(String[] args) {
 		// 프로그램 시작
-		new Frame_Ex1();
+		new Frame();
 
 	}
 

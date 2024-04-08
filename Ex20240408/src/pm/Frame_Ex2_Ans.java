@@ -58,10 +58,6 @@ public class Frame_Ex2_Ans extends JFrame {
 		};
 	};
 	
-	ArrayList<Bullet> b_list = new ArrayList<Bullet>();
-	
-	
-	
 	
 	JPanel p = new JPanel() {
 
@@ -183,7 +179,7 @@ public class Frame_Ex2_Ans extends JFrame {
 	
 	public static void main(String[] args) {
 		// 프로그램 시작
-		new Frame_Ex1();
+		new Frame_Ex2_Ans();
 
 	}
 
