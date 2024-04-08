@@ -17,7 +17,7 @@ public class Bullet extends Thread {
 		rect.height = f.bullet_img.getHeight(f);
 		
 		rect.x = x - rect.width/2;
-		rect.y = y;
+		rect.y = y - rect.height;
 		
 		this.f = f;
 		
@@ -32,8 +32,8 @@ public class Bullet extends Thread {
 			rect.y -= 3;
 			
 			f.p.repaint();
-			
-			for(int i =0; i< f.m_list.size(); i++) {
+			try {
+				for(int i =0; i< f.m_list.size(); i++) {
 				Meteor m = f.m_list.get(i);
 				if(this.rect.intersects(m.rect)) {
 					f.score++;
@@ -43,9 +43,12 @@ public class Bullet extends Thread {
 					break;
 				}
 			}
+			} catch (Exception e) {}
+			
 			if(chk) {
-//				Explosion e = new Explosion(rect.x, rect.y, f);
-//				f.e_list.add(e);
+				Explosion e = new Explosion(rect.x, rect.y, f);
+				f.e_list.add(e);
+				e.start();
 				break;
 			}
 			try {

@@ -20,7 +20,7 @@ public class Frame extends JFrame {
 	Dimension d = new Dimension(390, 590);
 	
 	// 필요한 각 이미지들 (배경, 주인공, 운석, 폭발 등)
-	Image back_img, me_img, meteor_img, bullet_img, explosion_img;
+	Image back_img, me_img, meteor_img, bullet_img;
 	
 	Me me = new Me();
 	
@@ -53,6 +53,12 @@ public class Frame extends JFrame {
 			for(int i=0;i<b_list.size();i++) {
 				Bullet b = b_list.get(i);
 				g.drawImage(bullet_img, b.rect.x, b.rect.y, this);
+			}
+			
+			// 폭발 그리기
+			for(int i=0; i<e_list.size(); i++) {
+				Explosion e = e_list.get(i);
+				g.drawImage(e.explosion_img, e.x, e.y, this);
 			}
 			
 			
@@ -110,7 +116,7 @@ public class Frame extends JFrame {
 				
 				switch(code) {
 				case KeyEvent.VK_LEFT:
-					me.rect.x -= 10;
+					me.rect.x -= me.rect.width/2;
 					if(me.rect.x < 0) {
 						me.rect.x = 0;
 					}
@@ -120,7 +126,7 @@ public class Frame extends JFrame {
 					break;
 					
 				case KeyEvent.VK_RIGHT:
-					me.rect.x += 10;
+					me.rect.x += me.rect.width/2;
 					if(me.rect.x > d.width-me.rect.width) {
 						me.rect.x = d.width-me.rect.width;
 					}
