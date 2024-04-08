@@ -52,7 +52,7 @@ public class ThreadEx1 extends Thread {
 			
 			
 			try {
-				Thread.sleep(10);
+				Thread.sleep(50);
 			} catch (Exception e) {}
 		}
 	}

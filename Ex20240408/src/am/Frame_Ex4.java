@@ -74,12 +74,22 @@ public class Frame_Ex4 extends JFrame {
 				switch(code) {
 				case KeyEvent.VK_RIGHT:
 					x += 5;
+//					int x1 = Frame_Ex4.this.x + (w/2);
+//					int y1 = Frame_Ex4.this.y;
+//					Bullet_Ex4 b1 = new Bullet_Ex4(x1, y1, Frame_Ex4.this);
+//					b_list.add(b1);
+//					b1.start();
 					if(x>p.getWidth()-w)
 						x = p.getWidth()-w;
 					break;
 					
 				case KeyEvent.VK_LEFT:
 					x -= 5;
+//					int x2 = Frame_Ex4.this.x + (w/2);
+//					int y2 = Frame_Ex4.this.y;
+//					Bullet_Ex4 b2 = new Bullet_Ex4(x2, y2, Frame_Ex4.this);
+//					b_list.add(b2);
+//					b2.start();
 					if(x<0)
 						x=0;
 					break;
