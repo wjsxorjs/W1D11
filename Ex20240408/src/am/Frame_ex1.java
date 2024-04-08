@@ -17,6 +17,8 @@ public class Frame_ex1 extends JFrame {
 	// 수행상태
 	boolean bRed = true, bGreen = true, bBlue = true;
 	
+//	int rStart, gStart, bStart;
+	
 	// 스레드 내부클래스들
 	Thread t_red = new Thread() {
 

@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 public class BallMovingEx1 extends JFrame {
 	
-	int x = 210, xInc = 5;
+	int x = 210, xInc = 1;
 	
 	
 	JPanel p = new JPanel() {
