@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Frame_Ex1 extends JFrame {
+public class Frame_Ex2_Ans extends JFrame {
 	
 	// 크기 객체 Dimension
 	Dimension d = new Dimension(390, 590);
@@ -22,10 +22,41 @@ public class Frame_Ex1 extends JFrame {
 	// 필요한 각 이미지들 (배경, 주인공, 운석, 폭발 등)
 	Image back_img, me_img, meteor_img;
 	
+	boolean flag = true;
+	
 	Me me = new Me();
 	
-	ArrayList<Meteor> m_list = new ArrayList<Meteor>();
+	// 운석을 저장할 수 있는 곳
+	ArrayList<Meteor_Ex2_Ans> m_list = new ArrayList<Meteor_Ex2_Ans>();
 	
+	//운석을 주기적으로 생성하여 m_list에 저장하는 스레드
+	Thread makeMeteor = new Thread() {
+		@Override
+		public void run() {
+			// 1초 간격으로 운석 객체 생성하여 m_list에 추가한 후 
+			// 생성된 운석 객체의 스레드를 구동시킨다.
+			while(flag) {
+				Meteor_Ex2_Ans m = new Meteor_Ex2_Ans(Frame_Ex2_Ans.this, meteor_img.getWidth(p), meteor_img.getHeight(p));
+				
+				int x = (int)(Math.random()*p.getSize().width-35);
+				
+				m.rect.x = x;
+				m.rect.y = -30;
+				
+				// 생성된 운석객체를 ArrayList에 저장
+				m_list.add(m);
+				
+				// 운석객체의 스레드 구동
+				m.start();
+				
+				try {
+					Thread.sleep(1000);
+				} catch (Exception e) {}
+			}
+			
+			
+		};
+	};
 	
 	ArrayList<Bullet> b_list = new ArrayList<Bullet>();
 	
@@ -44,7 +75,8 @@ public class Frame_Ex1 extends JFrame {
 			
 			//운석 그리기
 			for(int i=0;i<m_list.size();i++) {
-				Meteor m = m_list.get(i);
+				// 운석을 하나씩 가져온다.
+				Meteor_Ex2_Ans m = m_list.get(i);
 				g.drawImage(meteor_img, m.rect.x, m.rect.y, this);
 			}
 			
@@ -53,7 +85,7 @@ public class Frame_Ex1 extends JFrame {
 	};
 	
 	
-	public Frame_Ex1() {
+	public Frame_Ex2_Ans() {
 
 		
 		back_img = new ImageIcon("src/images/back.jpg").getImage();
@@ -67,15 +99,16 @@ public class Frame_Ex1 extends JFrame {
 		init_me_pos();
 		
 		
+		
+		
 		this.setLocation(300, 100); // 창의 위치
 		this.pack(); 				// 컴포넌트들의 크기에 맞게 사이즈 설정
 									// 이 경우, 패널을 넣었으니 패널의 사이즈에 맞춤
 		this.setResizable(false);
 		this.setVisible(true);
 		
-		
-		// 운석 생성기 시작
-		init_meteor();
+		// 운석 생성하는 스레드 시작
+		makeMeteor.start();
 		
 		this.addWindowListener(new WindowAdapter() {
 			@Override
@@ -112,8 +145,7 @@ public class Frame_Ex1 extends JFrame {
 					break;
 					
 				case KeyEvent.VK_SPACE:
-					Bullet b = new Bullet(me.pos.x-(me.pos.width/2), me.pos.y, Frame_Ex1.this);
-					b_list.add(b);
+					
 					
 					
 				}// switch의 끝
@@ -147,13 +179,6 @@ public class Frame_Ex1 extends JFrame {
 		
 
 	}
-	
-	private void init_meteor() {
-		MeteorGen mg = new MeteorGen(this);
-		mg.start();
-		
-	}
-	
 	
 	
 	public static void main(String[] args) {

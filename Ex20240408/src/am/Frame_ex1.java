@@ -10,7 +10,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 
-public class Frame_ex1 extends JFrame {
+public class Frame_Ex1 extends JFrame {
 	
 	JProgressBar redBar, greenBar, blueBar;
 	
@@ -107,7 +107,7 @@ public class Frame_ex1 extends JFrame {
 		
 	};
 	
-	public Frame_ex1() {
+	public Frame_Ex1() {
 		this.setLayout(new GridLayout(3,1));
 		this.add(redBar = new JProgressBar(0, 100));
 		this.add(greenBar = new JProgressBar(0, 100));
@@ -194,7 +194,7 @@ public class Frame_ex1 extends JFrame {
 	public static void main(String[] args) {
 		// 프로그램 시작
 
-		new Frame_ex1();
+		new Frame_Ex1();
 
 	}
 
